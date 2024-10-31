@@ -362,6 +362,7 @@ public class GestorUsuarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblUsuario.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblUsuario);
         if (tblUsuario.getColumnModel().getColumnCount() > 0) {
             tblUsuario.getColumnModel().getColumn(0).setResizable(false);

@@ -1,7 +1,6 @@
 package pe.edu.utp.controller;
 
 import pe.edu.utp.vista.BuscadordProductos;
-import pe.edu.utp.vista.Carrito;
 import pe.edu.utp.vista.GestorClientes;
 import pe.edu.utp.vista.GestorPedidos;
 import pe.edu.utp.vista.GestorProductos;
@@ -101,20 +100,10 @@ public class MenuController {
     }
 
     private void initialize2() {
-        this.vista2.lblRclientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista2.lblBuscarPro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista2.lblHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista2.lblSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        this.vista2.lblRclientes.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getSource() == vista2.lblRclientes) {
-                    System.out.println("Label Rclientes presionada");
-                    RegistrodClientes();
-                }
-            }
-        });
+        
         this.vista2.lblBuscarPro.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -296,13 +285,6 @@ public class MenuController {
         registrarSalida();
         SesionUsuario.cerrarSesion();
         Login a = new Login();
-        a.show();
-        vista2.dispose();
-    }
-
-    private void RegistrodClientes() {
-        InicioSesionDTO usuarioLogeado = SesionUsuario.getUsuarioLogeado();
-        RegistrodClientes a = new RegistrodClientes(usuarioLogeado);
         a.show();
         vista2.dispose();
     }

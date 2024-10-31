@@ -365,6 +365,7 @@ public class GestorProveedores extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblProveedor.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblProveedor);
         if (tblProveedor.getColumnModel().getColumnCount() > 0) {
             tblProveedor.getColumnModel().getColumn(0).setResizable(false);

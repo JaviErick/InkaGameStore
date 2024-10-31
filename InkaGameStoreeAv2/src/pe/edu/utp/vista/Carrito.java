@@ -365,6 +365,7 @@ public class Carrito extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblCarrito.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblCarrito);
         if (tblCarrito.getColumnModel().getColumnCount() > 0) {
             tblCarrito.getColumnModel().getColumn(0).setResizable(false);

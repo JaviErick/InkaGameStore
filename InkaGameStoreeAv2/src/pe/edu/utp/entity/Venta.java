@@ -3,8 +3,8 @@ package pe.edu.utp.entity;
 public class Venta {
     
     private int ventaID;
-    private int clienteID;
-    private int usuarioID;
+    private String clienteID;
+    private String usuarioID;
     private double total;
     private String fecha;
     private String hora;
@@ -12,7 +12,7 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(int ventaID, int clienteID, int usuarioID, double total, String fecha, String hora) {
+    public Venta(int ventaID, String clienteID, String usuarioID, double total, String fecha, String hora) {
         this.ventaID = ventaID;
         this.clienteID = clienteID;
         this.usuarioID = usuarioID;
@@ -29,19 +29,19 @@ public class Venta {
         this.ventaID = ventaID;
     }
 
-    public int getClienteID() {
+    public String getClienteID() {
         return clienteID;
     }
 
-    public void setClienteID(int clienteID) {
+    public void setClienteID(String clienteID) {
         this.clienteID = clienteID;
     }
 
-    public int getUsuarioID() {
+    public String getUsuarioID() {
         return usuarioID;
     }
 
-    public void setUsuarioID(int usuarioID) {
+    public void setUsuarioID(String usuarioID) {
         this.usuarioID = usuarioID;
     }
 

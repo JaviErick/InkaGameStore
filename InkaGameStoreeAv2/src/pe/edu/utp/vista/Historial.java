@@ -4,15 +4,21 @@
  */
 package pe.edu.utp.vista;
 
+import pe.edu.utp.controller.HistorialController;
+import pe.edu.utp.dao.VentaDao;
+import pe.edu.utp.daoImpl.VentaDaoImpl;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
+import pe.edu.utp.entity.Venta;
 
 /**
  *
  * @author Jessica Parra
  */
 public class Historial extends javax.swing.JFrame {
-
+    private Venta modelo;
+    private VentaDao dao;
+    private HistorialController controller;
     private InicioSesionDTO usuarioLogeado;
 
     private void mostrarDatosUsuario() {
@@ -25,6 +31,10 @@ public class Historial extends javax.swing.JFrame {
         initComponents();
         this.usuarioLogeado = usuarioLogeado;
         mostrarDatosUsuario();
+        modelo = new Venta();
+        dao = new VentaDaoImpl();
+        controller = new HistorialController(modelo, dao, this);
+        controller.iniciar();
     }
 
     /**
@@ -42,15 +52,15 @@ public class Historial extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lbltvent = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbldvent = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
+        lblregresar = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblvent = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -85,21 +95,40 @@ public class Historial extends javax.swing.JFrame {
         jLabel5.setText("Total de Ventas");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 140, 30));
 
-        jLabel6.setOpaque(true);
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 140, 30));
+        lbltvent.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbltvent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbltvent.setOpaque(true);
+        jPanel1.add(lbltvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 140, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbldvent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID_Producto", "Nombre", "Precio", "Cantidad", "Fecha ", "Hora "
+                "Nombre", "Cantidad", "Precio", "Subtotal", "Fecha y Hora"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbldvent.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbldvent);
+        if (tbldvent.getColumnModel().getColumnCount() > 0) {
+            tbldvent.getColumnModel().getColumn(0).setResizable(false);
+            tbldvent.getColumnModel().getColumn(1).setResizable(false);
+            tbldvent.getColumnModel().getColumn(2).setResizable(false);
+            tbldvent.getColumnModel().getColumn(3).setResizable(false);
+            tbldvent.getColumnModel().getColumn(4).setResizable(false);
+            tbldvent.getColumnModel().getColumn(4).setPreferredWidth(200);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 600, 130));
 
@@ -125,38 +154,51 @@ public class Historial extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(17, 17, 58));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Regresar");
+        lblregresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblregresar.setForeground(new java.awt.Color(255, 255, 255));
+        lblregresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblregresar.setText("Regresar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(lblregresar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lblregresar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, -1, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblvent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Venta", "Cliente", "Documento", "Total", "Cantidad", "Fecha de Venta", "Hora de Venta"
+                "ID_Venta", "Cliente", "Encargado", "Total", "Fecha de venta", "Hora de venta"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(4).setHeaderValue("Cantidad");
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblvent.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblvent);
+        if (tblvent.getColumnModel().getColumnCount() > 0) {
+            tblvent.getColumnModel().getColumn(0).setResizable(false);
+            tblvent.getColumnModel().getColumn(1).setResizable(false);
+            tblvent.getColumnModel().getColumn(2).setResizable(false);
+            tblvent.getColumnModel().getColumn(3).setResizable(false);
+            tblvent.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 190, 600, 130));
@@ -225,19 +267,19 @@ public class Historial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCargo;
+    public javax.swing.JLabel lblregresar;
+    public javax.swing.JLabel lbltvent;
+    public javax.swing.JTable tbldvent;
+    public javax.swing.JTable tblvent;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

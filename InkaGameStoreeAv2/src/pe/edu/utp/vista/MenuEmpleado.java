@@ -54,7 +54,6 @@ public class MenuEmpleado extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        lblRclientes = new javax.swing.JLabel();
         lblBuscarPro = new javax.swing.JLabel();
         lblHistorial = new javax.swing.JLabel();
         lblSalir = new javax.swing.JLabel();
@@ -90,17 +89,14 @@ public class MenuEmpleado extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/logoinka.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 100, 80));
 
-        lblRclientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/cliente.png"))); // NOI18N
-        getContentPane().add(lblRclientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 200, 170));
-
         lblBuscarPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/productos.png"))); // NOI18N
-        getContentPane().add(lblBuscarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 200, 170));
+        getContentPane().add(lblBuscarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 200, 170));
 
         lblHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/Historialdeventas.png"))); // NOI18N
-        getContentPane().add(lblHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 200, 170));
+        getContentPane().add(lblHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 200, 170));
 
         lblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/exit.png"))); // NOI18N
-        getContentPane().add(lblSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 200, 170));
+        getContentPane().add(lblSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 200, 170));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/FondoMenuEmpleado.png"))); // NOI18N
@@ -156,7 +152,6 @@ public class MenuEmpleado extends javax.swing.JFrame {
     public javax.swing.JLabel lblBuscarPro;
     private javax.swing.JLabel lblCargo;
     public javax.swing.JLabel lblHistorial;
-    public javax.swing.JLabel lblRclientes;
     public javax.swing.JLabel lblSalir;
     // End of variables declaration//GEN-END:variables
 }

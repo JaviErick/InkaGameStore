@@ -337,6 +337,8 @@ public class GestorClientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblClientes.setToolTipText("");
+        tblClientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblClientes);
         if (tblClientes.getColumnModel().getColumnCount() > 0) {
             tblClientes.getColumnModel().getColumn(0).setResizable(false);

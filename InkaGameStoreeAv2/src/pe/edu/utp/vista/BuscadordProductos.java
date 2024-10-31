@@ -4,7 +4,7 @@
  */
 package pe.edu.utp.vista;
 
-import pe.edu.utp.controller.VentaController;
+import pe.edu.utp.controller.BuscarProductoController;
 import pe.edu.utp.dao.ProductoDao;
 import pe.edu.utp.daoImpl.ProductoDaoImpl;
 import pe.edu.utp.dto.InicioSesionDTO;
@@ -19,7 +19,7 @@ public class BuscadordProductos extends javax.swing.JFrame {
 
     private Productos modelo;
     private ProductoDao dao;
-    private VentaController controller;
+    private BuscarProductoController controller;
     private InicioSesionDTO usuarioLogeado;
 
     private void mostrarDatosUsuario() {
@@ -32,7 +32,7 @@ public class BuscadordProductos extends javax.swing.JFrame {
         initComponents();
         modelo = new Productos();
         dao = new ProductoDaoImpl();
-        controller = new VentaController(modelo, dao, this);
+        controller = new BuscarProductoController(modelo, dao, this);
         controller.iniciar();
         this.usuarioLogeado = usuarioLogeado;
         mostrarDatosUsuario();

@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import pe.edu.utp.dao.ClientesDao;
 import pe.edu.utp.dao.VentaDao;
+import pe.edu.utp.daoImpl.ClientesDaoImpl;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
 import pe.edu.utp.entity.Carritoo;
@@ -100,6 +101,17 @@ public class CarritoController implements Runnable {
         hilo = new Thread(this);
         hilo.start();
     }
+
+    private void NuevoCliente() {
+        Clientes modeloCliente = new Clientes();
+        ClientesDao daoCliente = new ClientesDaoImpl();
+        RegistrodClientes vistaRegistrodClientes = new RegistrodClientes(SesionUsuario.getUsuarioLogeado());
+        RegistroClienteController RegistroController = new RegistroClienteController(modeloCliente, daoCliente, vistaRegistrodClientes);
+        RegistroController.iniciar();
+        vistaRegistrodClientes.setVisible(true);
+        vista.dispose();
+    }
+
 
     private void NuevoProducto() {
         InicioSesionDTO usuarioLogeado = SesionUsuario.getUsuarioLogeado();
@@ -295,18 +307,13 @@ public class CarritoController implements Runnable {
         }
     }
 
-    private void ClienteNuevo() {
-        InicioSesionDTO usuarioLogeado = SesionUsuario.getUsuarioLogeado();
-        RegistrodClientes c = new RegistrodClientes(usuarioLogeado);
-        c.show();
-        vista.dispose();
-    }
+  
 
     private void insertarVenta() {
         try {
             System.out.println("Guardando cliente...");  // Depuración
-            modelo2.setClienteID(Integer.parseInt(vista.lblID.getText()));
-            modelo2.setUsuarioID(SesionUsuario.getIdLogeado());
+            modelo2.setClienteID((vista.lblID.getText()));
+            modelo2.setUsuarioID(String.valueOf(SesionUsuario.getIdLogeado()));
             modelo2.setTotal(Double.parseDouble(vista.lblTotal.getText()));
             modelo2.setFecha(vista.lblFecha.getText());
             modelo2.setHora(vista.lblHora.getText());
@@ -324,7 +331,7 @@ public class CarritoController implements Runnable {
 
                 // Crear una nueva instancia de detalle de venta (modelo3)
                 DetalleVenta detalle = new DetalleVenta();
-                detalle.setProductoID(idproducto);
+                detalle.setProductoID(String.valueOf(idproducto));
                 detalle.setCantidad(cantidad);
                 detalle.setPrecio(precio);
                 detalle.setFechHoraAgreCarrito(fecha + " " + hora);
@@ -361,6 +368,7 @@ public class CarritoController implements Runnable {
                 DefaultTableModel dtmodel = (DefaultTableModel) vista.tblCarrito.getModel();
                 dtmodel.removeRow(filaSeleccionada);
                 JOptionPane.showMessageDialog(null, "Producto eliminado del carrito.");
+                calcularTotal();
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
             }
@@ -372,12 +380,12 @@ public class CarritoController implements Runnable {
     private void ConfirmarCompra() {
         insertarVenta();
     }
-    
-    private void procesar(){
+
+    private void procesar() {
         double total = Double.parseDouble(vista.lblTotal.getText());
         double presupuesto = Double.parseDouble(vista.txtPresupuesto.getText());
         double vuelto = presupuesto - total;
-        
+
         vista.lblVuelto.setText(String.valueOf(vuelto));
     }
 
@@ -459,7 +467,7 @@ public class CarritoController implements Runnable {
             public void mouseClicked(MouseEvent e) {
                 if (e.getSource() == vista.lblClienteNuevo) {
                     System.out.println("label Cliente nuevo presionado");  // Depuración
-                    ClienteNuevo();
+                    NuevoCliente();
                 }
             }
         });

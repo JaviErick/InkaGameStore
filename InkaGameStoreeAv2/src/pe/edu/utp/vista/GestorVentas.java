@@ -1,9 +1,24 @@
+
+
+
 package pe.edu.utp.vista;
 
+import pe.edu.utp.controller.VentasController;
+import pe.edu.utp.dao.VentaDao;
+import pe.edu.utp.daoImpl.UsuarioDaoImpl;
+import pe.edu.utp.daoImpl.VentaDaoImpl;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
+import pe.edu.utp.entity.Venta;
+/**
+ *
+ * @author Jessica Parra
+ */
 
 public class GestorVentas extends javax.swing.JFrame {
+    private Venta modelo;
+    private VentaDao dao;
+    private VentasController controller;
 
     private InicioSesionDTO usuarioLogeado;
 
@@ -15,6 +30,10 @@ public class GestorVentas extends javax.swing.JFrame {
     
     public GestorVentas(InicioSesionDTO usuarioLogeado) {
         initComponents();
+        modelo = new Venta();
+        dao = new VentaDaoImpl();
+        controller = new VentasController(modelo, dao, this);
+        controller.iniciar();
         this.usuarioLogeado = usuarioLogeado;
         mostrarDatosUsuario();
     }
@@ -34,20 +53,20 @@ public class GestorVentas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblTotalVentas = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lblTotalIngresos = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        lblDetalle = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblVenta = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        lblRegresar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDetalleVenta = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -81,108 +100,72 @@ public class GestorVentas extends javax.swing.JFrame {
         jLabel6.setText("Total de Ventas:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 140, 30));
 
-        jLabel7.setOpaque(true);
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 160, 30));
+        lblTotalVentas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTotalVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalVentas.setOpaque(true);
+        jPanel1.add(lblTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 160, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Total Ingresos:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 140, 30));
 
-        jLabel12.setOpaque(true);
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 160, 30));
+        lblTotalIngresos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTotalIngresos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalIngresos.setOpaque(true);
+        jPanel1.add(lblTotalIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 160, 30));
 
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Buscar Ventas...");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.setForeground(new java.awt.Color(153, 153, 153));
+        txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setText("Buscar Ventas...");
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 370, 30));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 370, 30));
 
         jPanel2.setBackground(new java.awt.Color(17, 17, 58));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Ver Detalle");
+        lblDetalle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblDetalle.setForeground(new java.awt.Color(255, 255, 255));
+        lblDetalle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDetalle.setText("Ver Detalle");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+            .addComponent(lblDetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lblDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 110, 30));
 
         jPanel3.setBackground(new java.awt.Color(17, 17, 58));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Buscar");
+        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        lblBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBuscar.setText("Buscar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+            .addComponent(lblBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lblBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 140, 110, 30));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID_Venta", "Cliente", "Documento", "Total", "Cantidad", "Fecha de Venta", "Hora de Venta", "Empleado"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(20);
-        }
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 190, 600, 130));
-
-        jPanel4.setBackground(new java.awt.Color(17, 17, 58));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Regresar");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, 110, 30));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -190,10 +173,81 @@ public class GestorVentas extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Producto", "NombreProducto", "Precio", "Cantidad", "Fecha ", "Hora "
+                "ID_Venta", "Cliente", "Empleado", "Total", "Fecha de Venta", "Hora de Venta"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblVenta.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblVenta);
+        tblVenta.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tblVenta.getColumnModel().getColumnCount() > 0) {
+            tblVenta.getColumnModel().getColumn(0).setResizable(false);
+            tblVenta.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tblVenta.getColumnModel().getColumn(1).setResizable(false);
+            tblVenta.getColumnModel().getColumn(2).setResizable(false);
+            tblVenta.getColumnModel().getColumn(3).setResizable(false);
+            tblVenta.getColumnModel().getColumn(4).setResizable(false);
+            tblVenta.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 190, 600, 130));
+
+        jPanel4.setBackground(new java.awt.Color(17, 17, 58));
+
+        lblRegresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        lblRegresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRegresar.setText("Regresar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, 110, 30));
+
+        tblDetalleVenta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "NombreProducto", "Cantidad", "Precio", "Subtotal", "FechaHora"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDetalleVenta.setEnabled(false);
+        tblDetalleVenta.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblDetalleVenta);
+        if (tblDetalleVenta.getColumnModel().getColumnCount() > 0) {
+            tblDetalleVenta.getColumnModel().getColumn(0).setResizable(false);
+            tblDetalleVenta.getColumnModel().getColumn(1).setResizable(false);
+            tblDetalleVenta.getColumnModel().getColumn(2).setResizable(false);
+            tblDetalleVenta.getColumnModel().getColumn(3).setResizable(false);
+            tblDetalleVenta.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 600, 130));
 
@@ -225,9 +279,9 @@ public class GestorVentas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -272,26 +326,26 @@ public class GestorVentas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    public javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCargo;
+    public javax.swing.JLabel lblDetalle;
+    public javax.swing.JLabel lblRegresar;
+    public javax.swing.JLabel lblTotalIngresos;
+    public javax.swing.JLabel lblTotalVentas;
+    public javax.swing.JTable tblDetalleVenta;
+    public javax.swing.JTable tblVenta;
+    public javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

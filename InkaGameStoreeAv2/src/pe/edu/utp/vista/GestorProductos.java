@@ -481,6 +481,7 @@ public class GestorProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblProductos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblProductos);
         if (tblProductos.getColumnModel().getColumnCount() > 0) {
             tblProductos.getColumnModel().getColumn(0).setResizable(false);
