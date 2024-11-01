@@ -11,5 +11,6 @@ public interface VentaDao {
     public List<DetalleVenta> MostrarDetalleVenta( int IDVenta);
     public List<Venta> buscardorVentas(String criterio);
     public List<Venta> buscardorVentasPorUsuarioID(int usuarioID);
+    public List<DetalleVenta> MostrarDetalle();
 
 }

@@ -1,7 +1,7 @@
 package pe.edu.utp.entity;
 
 public class DetalleVenta {
-
+    private int ventaID;
     private String productoID;
     private int cantidad;
     private double precio;
@@ -11,7 +11,8 @@ public class DetalleVenta {
     public DetalleVenta() {
     }
 
-    public DetalleVenta(String productoID, int cantidad, double precio, double subtotal, String fechHoraAgreCarrito) {
+    public DetalleVenta(int ventaID, String productoID, int cantidad, double precio, double subtotal, String fechHoraAgreCarrito) {
+        this.ventaID = ventaID;
         this.productoID = productoID;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -19,6 +20,13 @@ public class DetalleVenta {
         this.fechHoraAgreCarrito = fechHoraAgreCarrito;
     }
 
+    public int getVentaID() {
+        return ventaID;
+    }
+
+    public void setVentaID(int ventaID) {
+        this.ventaID = ventaID;
+    }
     public String getFechHoraAgreCarrito() {
         return fechHoraAgreCarrito;
     }

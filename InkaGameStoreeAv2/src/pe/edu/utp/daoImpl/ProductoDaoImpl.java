@@ -156,10 +156,10 @@ public class ProductoDaoImpl extends Conexion implements ProductoDao {
         }
 
         return categorias;
-    }
+    }    //para el item
 
     @Override
-    public int ObtenerIDCategoria(String nombreCategoria) {
+    public int ObtenerIDCategoria(String nombreCategoria) {                                      //metodo2
         int categoriaId = -1; // Valor por defecto en caso de no encontrar la categoría
         PreparedStatement ps = null;
         ResultSet rs = null;

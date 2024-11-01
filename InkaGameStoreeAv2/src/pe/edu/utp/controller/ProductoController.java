@@ -31,6 +31,7 @@ import pe.edu.utp.dao.ProductoDao;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
 import pe.edu.utp.entity.Productos;
+import pe.edu.utp.service.ExcelProductos;
 
 public class ProductoController implements Runnable {
 
@@ -75,7 +76,7 @@ public class ProductoController implements Runnable {
         initialize();  // Vincula los eventos a los botones
     }
 
-    public void llenarComboBoxCategorias() {
+    public void llenarComboBoxCategorias() {     //metodo para item
         List<String> categorias = pdao.getCategorias();
 
         if (categorias.isEmpty()) {
@@ -361,6 +362,17 @@ public class ProductoController implements Runnable {
         vista.dispose();
     }
 
+    private void generarReporteExcel() {
+        // Obtener lista de clientes
+        List<Productos> listaProducto = pdao.readAllProductos();  // Obtiene todos los clientes desde ClientesDao
+        if (!listaProducto.isEmpty()) {
+            // Llamar al servicio para generar el reporte
+            ExcelProductos.generarReporteProductos(listaProducto);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay clientes para generar el reporte.");
+        }
+    }
+
     private void limpiar() {
         System.out.println("Limpiando formulario...");  // Depuración
         vista.txtNombre.setText("Ingrese el Nombre del Producto...");
@@ -448,6 +460,7 @@ public class ProductoController implements Runnable {
         this.vista.lblLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblInspeccionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        this.vista.lblExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         this.vista.lblGuardar.addMouseListener(new MouseAdapter() {
             @Override
@@ -530,6 +543,16 @@ public class ProductoController implements Runnable {
             @Override
             public void mousePressed(MouseEvent evt) {
                 txtMousePressed(vista.txtImagenRuta, "Ingrese la Ruta...");
+            }
+        });
+
+        this.vista.lblExcel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == vista.lblExcel) {
+                    System.out.println("label Excel presionado");  // Depuración
+                    generarReporteExcel();  // Llamada al método para generar el reporte
+                }
             }
         });
 

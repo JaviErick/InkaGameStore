@@ -10,9 +10,9 @@ public class Conexion {
     Connection con = null;
 
     String base = "inkagamestore"; //Nombre de la base de datos
-    String url = "jdbc:mysql://localhost:3306/" + base; //Direccion, puerto y nombre de la Base de Datos
+    String url = "jdbc:mysql://localhost:3307/" + base; //Direccion, puerto y nombre de la Base de Datos
     String user = "root"; //Usuario de Acceso a MySQL
-    String password = ""; //Password del usuario
+    String password = "root"; //Password del usuario
 
     public Connection getConexion() {
 

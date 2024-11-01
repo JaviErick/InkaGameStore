@@ -16,6 +16,7 @@ import pe.edu.utp.dao.ClientesDao;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
 import pe.edu.utp.entity.Clientes;
+import pe.edu.utp.service.ExcelClientes;
 
 public class ClientesController {
 
@@ -158,6 +159,16 @@ public class ClientesController {
         }
 
     }
+    private void generarReporteExcel() {
+    // Obtener lista de clientes
+    List<Clientes> listaClientes = pdao.readAllClientes();  // Obtiene todos los clientes desde ClientesDao
+    if (!listaClientes.isEmpty()) {
+        // Llamar al servicio para generar el reporte
+        ExcelClientes.generarReporteClientes(listaClientes);
+    } else {
+        JOptionPane.showMessageDialog(null, "No hay clientes para generar el reporte.");
+    }
+    }
 
     // Método para limpiar los campos del formulario
     private void limpiar() {
@@ -259,6 +270,7 @@ public class ClientesController {
         this.vista.lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        this.vista.lblExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         this.vista.lblGuardar.addMouseListener(new MouseAdapter() {
             @Override
@@ -306,6 +318,16 @@ public class ClientesController {
                 }
             }
         });
+        this.vista.lblExcel.addMouseListener(new MouseAdapter() {
+    @Override
+  public void mouseClicked(MouseEvent e) {
+            if (e.getSource() == vista.lblExcel) {
+                System.out.println("label Excel presionado");  // Depuración
+                generarReporteExcel();  // Llamada al método para generar el reporte
+            }
+        }
+    });
+
 
         // Agregar MouseListener a los campos de texto
         vista.txtDni.addMouseListener(new MouseAdapter() {
@@ -338,3 +360,4 @@ public class ClientesController {
 
     }
 }
+

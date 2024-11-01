@@ -16,6 +16,7 @@ import pe.edu.utp.entity.Usuario;
 import pe.edu.utp.dao.UsuarioDao;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
+import pe.edu.utp.service.ExcelUsuarios;
 
 /**
  *
@@ -130,6 +131,17 @@ public class UsuarioController {
         }
     }
 
+    private void generarReporteExcel() {
+        // Obtener lista de clientes
+        List<Usuario> listaUsuarios = pdao.readAllUsuario();  // Obtiene todos los clientes desde ClientesDao
+        if (!listaUsuarios.isEmpty()) {
+            // Llamar al servicio para generar el reporte
+            ExcelUsuarios.generarReporteUsuarios(listaUsuarios);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay clientes para generar el reporte.");
+        }
+    }
+
     // Método para limpiar los campos del formulario
     private void limpiar() {
         System.out.println("Limpiando formulario...");  // Depuración
@@ -175,7 +187,7 @@ public class UsuarioController {
         }
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        
+
         for (int i = 0; i < vista.tblUsuario.getColumnCount(); i++) {
             vista.tblUsuario.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
         }
@@ -282,6 +294,7 @@ public class UsuarioController {
         this.vista.lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+         this.vista.lblExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         this.vista.lblGuardar.addMouseListener(new MouseAdapter() {
             @Override
@@ -363,6 +376,16 @@ public class UsuarioController {
             @Override
             public void mousePressed(MouseEvent evt) {
                 txtMousePressed(vista.txtContraseña, "************");
+            }
+        });
+        
+        this.vista.lblExcel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == vista.lblExcel) {
+                    System.out.println("label Excel presionado");  // Depuración
+                    generarReporteExcel();  // Llamada al método para generar el reporte
+                }
             }
         });
 

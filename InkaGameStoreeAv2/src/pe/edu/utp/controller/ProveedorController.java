@@ -16,7 +16,7 @@ import pe.edu.utp.dao.ProveedorDao;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
 import pe.edu.utp.entity.Proveedor;
-
+import pe.edu.utp.service.ExcelProveedores;
 /**
  *
  * @author javie
@@ -126,7 +126,9 @@ public class ProveedorController {
                 limpiar();
                 break;
             }
-        }
+}
+
+
         // Si el código no se encontró en la tabla, agregar un nuevo producto
         if (!encontrado) {
             try {
@@ -181,7 +183,16 @@ public class ProveedorController {
         }
 
     }
-
+ private void generarReporteExcel() {
+    // Obtener lista de clientes
+    List<Proveedor> listaProveedores = pdao.readAllProveedor();  // Obtiene todos los clientes desde ClientesDao
+    if (!listaProveedores.isEmpty()) {
+        // Llamar al servicio para generar el reporte
+        ExcelProveedores.generarReporteProveedores(listaProveedores);
+    } else {
+        JOptionPane.showMessageDialog(null, "No hay clientes para generar el reporte.");
+    }
+    }
     // Método para limpiar la tabla de Proveedores
     private void limpiarTabla() {
         System.out.println("Limpiando tabla de Proveedores...");  // Depuración
@@ -211,7 +222,7 @@ public class ProveedorController {
         }
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        
+
         for (int i = 0; i < vista.tblProveedor.getColumnCount(); i++) {
             vista.tblProveedor.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
         }
@@ -274,6 +285,7 @@ public class ProveedorController {
         this.vista.lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        this.vista.lblExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         this.vista.lblGuardar.addMouseListener(new MouseAdapter() {
             @Override
@@ -355,6 +367,16 @@ public class ProveedorController {
             @Override
             public void mousePressed(MouseEvent evt) {
                 txtMousePressed(vista.txtCorreo, "Ingrese su Correo...");
+            }
+        });
+
+        this.vista.lblExcel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == vista.lblExcel) {
+                    System.out.println("label Excel presionado");  // Depuración
+                    generarReporteExcel();  // Llamada al método para generar el reporte
+                }
             }
         });
 

@@ -83,7 +83,7 @@ public class GestorProductos extends javax.swing.JFrame {
         txtStock = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
+        lblExcel = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
@@ -326,20 +326,20 @@ public class GestorProductos extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(17, 17, 58));
 
-        jLabel21.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Reporte Excel");
+        lblExcel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblExcel.setForeground(new java.awt.Color(255, 255, 255));
+        lblExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExcel.setText("Reporte Excel");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+            .addComponent(lblExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lblExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
@@ -629,7 +629,6 @@ public class GestorProductos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -653,6 +652,7 @@ public class GestorProductos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblCargo;
     public javax.swing.JLabel lblEliminar;
+    public javax.swing.JLabel lblExcel;
     public javax.swing.JLabel lblFecha;
     public javax.swing.JLabel lblGuardar;
     public javax.swing.JLabel lblHora;

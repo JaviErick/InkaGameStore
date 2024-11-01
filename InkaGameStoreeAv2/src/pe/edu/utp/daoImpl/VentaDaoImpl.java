@@ -31,8 +31,9 @@ public class VentaDaoImpl extends Conexion implements VentaDao {
                 String fechaHoraVenta = rs.getString("FechaHoraVenta");
 
                 // Separar la fecha y la hora
-                String fecha = fechaHoraVenta.substring(0, 10);  // YYYY-MM-DD
+                String fecha = fechaHoraVenta.substring(0, 10);  // YYYY-MM-DD  
                 String hora = fechaHoraVenta.substring(11);      // HH:MM:SS
+                
 
                 Venta venta = new Venta();
                 venta.setVentaID(ventaID);
@@ -179,6 +180,47 @@ public class VentaDaoImpl extends Conexion implements VentaDao {
 
         return Detalleventas;
     }
+    
+    @Override
+    public List<DetalleVenta> MostrarDetalle() {
+        List<DetalleVenta> Detalleventas = new ArrayList<>();
+        String sql = "SELECT d.Venta_ID, p.NombreProducto, d.Cantidad, d.Precio, d.FechaHoraAgreCarrito, d.Subtotal "
+                + "FROM detalleventa d "
+                + "INNER JOIN producto p ON d.Producto_ID = p.Producto_ID ";
+               
+
+        try (java.sql.Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int ID = rs.getInt("Venta_ID");
+                    String nombreProducto = rs.getString("NombreProducto");
+                    int cantidad = rs.getInt("Cantidad");
+                    double precio = rs.getDouble("Precio");
+                    String fechaHoraAgreCarrito = rs.getString("FechaHoraAgreCarrito");
+                    double subtotal = rs.getDouble("Subtotal");
+
+                    // Crear una instancia de `DetalleVenta` y asignar valores
+                    DetalleVenta detalleVenta = new DetalleVenta();
+                    detalleVenta.setVentaID(ID);
+                    detalleVenta.setProductoID(nombreProducto);
+                    detalleVenta.setCantidad(cantidad);
+                    detalleVenta.setPrecio(precio);
+                    detalleVenta.setSubtotal(subtotal);
+                    detalleVenta.setFechHoraAgreCarrito(fechaHoraAgreCarrito);
+                    
+
+                    // Añadir a la lista
+                    Detalleventas.add(detalleVenta);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la consulta: " + e.getMessage());
+        }
+
+        return Detalleventas;
+    }
+    
 
     @Override
     public boolean createVenta(Venta v, List<DetalleVenta> detalleVenta) {

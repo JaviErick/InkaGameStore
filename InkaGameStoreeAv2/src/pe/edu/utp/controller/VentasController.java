@@ -17,6 +17,7 @@ import pe.edu.utp.dto.SesionUsuario;
 import pe.edu.utp.entity.Clientes;
 import pe.edu.utp.entity.DetalleVenta;
 import pe.edu.utp.entity.Venta;
+import pe.edu.utp.service.ExcelVentas;
 import pe.edu.utp.vista.GestorVentas;
 import pe.edu.utp.vista.MenuAdmin;
 
@@ -77,6 +78,18 @@ public class VentasController {
 
         vista.tblVenta.setModel(dtmodel);
     }
+
+    private void generarReporteExcel() {
+    List<Venta> listaVentas = dao.readAllVenta(); // Asegúrate de usar este método
+    List<DetalleVenta> listaDetalles = dao.MostrarDetalle(); // Asegúrate de usar este método
+
+    if (!listaVentas.isEmpty() && !listaDetalles.isEmpty()) {
+        ExcelVentas.generarReporteVentas(listaVentas, listaDetalles);
+    } else {
+        String mensaje = listaVentas.isEmpty() ? "No hay Ventas para generar el reporte." : "No hay Detalles de Ventas para generar el reporte.";
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
+}
 
     private void buscarVentas() {
         String criterio = vista.txtBuscar.getText();
@@ -141,7 +154,7 @@ public class VentasController {
         }
 
     }
-    
+
     private void RegresarMenu() {
         InicioSesionDTO usuarioLogeado = SesionUsuario.getUsuarioLogeado();
         MenuAdmin m = new MenuAdmin(usuarioLogeado);
@@ -163,7 +176,6 @@ public class VentasController {
         vista.lblTotalIngresos.setText(sf.format(total));
     }
 
-    
     private int calcularNumeroVentasRecursivo(int filaActual) {
         if (filaActual >= vista.tblVenta.getRowCount()) {
             return 0;  // No hay más filas
@@ -180,6 +192,8 @@ public class VentasController {
         System.out.println("Inicializando botones y listeners...");  // Depuración
         this.vista.lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.vista.lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        this.vista.lblExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    
 
         this.vista.lblBuscar.addMouseListener(new MouseAdapter() {
             @Override
@@ -201,6 +215,15 @@ public class VentasController {
                 if (e.getSource() == vista.lblRegresar) {
                     System.out.println("label Regresar presionado");  // Depuración
                     RegresarMenu();
+                }
+            }
+        });
+          this.vista.lblExcel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == vista.lblExcel) {
+                    System.out.println("label Excel presionado");  // Depuración
+                    generarReporteExcel();  // Llamada al método para generar el reporte
                 }
             }
         });
