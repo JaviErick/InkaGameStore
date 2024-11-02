@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pe.edu.utp.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,7 +14,6 @@ import pe.edu.utp.dto.SesionUsuario;
 import pe.edu.utp.entity.DetalleVenta;
 import pe.edu.utp.entity.Venta;
 import pe.edu.utp.vista.Historial;
-import pe.edu.utp.vista.MenuAdmin;
 import pe.edu.utp.vista.MenuEmpleado;
 
 /**
@@ -49,9 +42,10 @@ public class HistorialController {
         int usuarioID = SesionUsuario.getIdLogeado();
         listar(usuarioID);
         calcularTotalVentas();
+        renderizar();
     }
 
-    public void listar(int usuarioID) { 
+    private void listar(int usuarioID) { 
         System.out.println("Listando ventas...");
         dtmodel = (DefaultTableModel) vista.tblvent.getModel();
         vista.tblvent.setModel(dtmodel);
@@ -106,17 +100,17 @@ public class HistorialController {
             objeto[4] = lista.get(i).getFechHoraAgreCarrito();
             dtmodel.addRow(objeto);
         }
-
+    }
+    
+    private void renderizar(){
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
         for (int i = 0; i < vista.tbldvent.getColumnCount(); i++) {
             vista.tbldvent.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
         }
         for (int i = 0; i < vista.tbldvent.getColumnCount(); i++) {
             vista.tbldvent.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
     }
     
     private void RegresarMenu() {
@@ -144,12 +138,11 @@ public class HistorialController {
         vista.tblvent.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {  // Detectar doble clic
+                if (e.getClickCount() == 2) {
                     JTable target = (JTable) e.getSource();
-                    int row = target.getSelectedRow();  // Obtener la fila seleccionada
-                    int ventaID = (int) target.getValueAt(row, 0);  // Asumimos que el ID está en la primera columna (columna 0)
-
-                    // Llamar al método que maneja la acción
+                    int row = target.getSelectedRow(); 
+                    int ventaID = (int) target.getValueAt(row, 0);
+                    
                     MostrarDetalle(ventaID);
                 }
             }

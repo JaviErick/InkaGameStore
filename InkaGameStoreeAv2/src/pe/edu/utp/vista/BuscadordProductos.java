@@ -189,7 +189,7 @@ public class BuscadordProductos extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 110, 30));
 
-        tcCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        tcCantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         jPanel1.add(tcCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 70, 30));
 
         jPanel4.setBackground(new java.awt.Color(17, 17, 58));

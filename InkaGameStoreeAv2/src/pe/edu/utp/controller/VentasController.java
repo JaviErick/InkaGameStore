@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import pe.edu.utp.dao.VentaDao;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
-import pe.edu.utp.entity.Clientes;
 import pe.edu.utp.entity.DetalleVenta;
 import pe.edu.utp.entity.Venta;
 import pe.edu.utp.service.ExcelVentas;
@@ -47,6 +46,7 @@ public class VentasController {
         listar();
         calcularTotalVentas();
         calcularTotalIngresos();
+        renderizar();
     }
 
     public void listar() {
@@ -142,17 +142,17 @@ public class VentasController {
             objeto[4] = lista.get(i).getFechHoraAgreCarrito();
             dtmodel.addRow(objeto);
         }
-
+    }
+    
+    private void renderizar(){
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
         for (int i = 0; i < vista.tblDetalleVenta.getColumnCount(); i++) {
             vista.tblDetalleVenta.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
         }
         for (int i = 0; i < vista.tblDetalleVenta.getColumnCount(); i++) {
             vista.tblDetalleVenta.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
     }
 
     private void RegresarMenu() {
@@ -173,7 +173,7 @@ public class VentasController {
     private void calcularTotalIngresos() {
         double total = calcularTotalRecursivo(0);
         DecimalFormat sf = new DecimalFormat("#,##0.00"); // Formato para mostrar dos decimales
-        vista.lblTotalIngresos.setText(sf.format(total));
+        vista.lblTotalIngresos.setText("S/." + sf.format(total));
     }
 
     private int calcularNumeroVentasRecursivo(int filaActual) {

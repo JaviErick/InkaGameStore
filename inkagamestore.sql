@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2024 a las 01:35:11
+-- Tiempo de generación: 02-11-2024 a las 16:57:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -64,7 +64,9 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`Cliente_ID`, `NombreCompleto`, `Telefono`, `Direccion`, `DNI`) VALUES
 (1, 'arnold jose', '987654321', 'Lima', '78787878'),
 (3, 'Condorito', '987654321', 'Chosica', '74454588'),
-(8, 'Omer Runco Valdez', '939962161', 'Santa Clara, Ate.', '75661452');
+(8, 'Omer Runco Valdez', '939962161', 'Santa Clara, Ate.', '75661452'),
+(10, 'Jeckis de omeshito', '991014545', 'casa de omeshito', '73115058'),
+(11, 'omeeee', '654987321', 'mi casa', '46587923');
 
 -- --------------------------------------------------------
 
@@ -74,9 +76,10 @@ INSERT INTO `cliente` (`Cliente_ID`, `NombreCompleto`, `Telefono`, `Direccion`, 
 
 CREATE TABLE `detallepedido` (
   `Pedido_ID` int(11) DEFAULT NULL,
-  `Producto_ID` int(11) DEFAULT NULL,
+  `Prod_ID` int(11) DEFAULT NULL,
   `Cantidad` int(11) DEFAULT NULL,
   `PrecioUnitario` decimal(10,2) NOT NULL,
+  `FechaHoraAgregado` datetime NOT NULL,
   `Subtotal` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -84,8 +87,13 @@ CREATE TABLE `detallepedido` (
 -- Volcado de datos para la tabla `detallepedido`
 --
 
-INSERT INTO `detallepedido` (`Pedido_ID`, `Producto_ID`, `Cantidad`, `PrecioUnitario`, `Subtotal`) VALUES
-(1, 1, 1, 1300.00, 1300.00);
+INSERT INTO `detallepedido` (`Pedido_ID`, `Prod_ID`, `Cantidad`, `PrecioUnitario`, `FechaHoraAgregado`, `Subtotal`) VALUES
+(4, 2, 3, 2000.00, '2024-11-01 22:46:51', 6000.00),
+(5, 2, 3, 2000.00, '2024-11-01 23:30:33', 6000.00),
+(6, 1, 3, 1300.00, '2024-11-02 00:00:37', 3900.00),
+(7, 1, 6, 1300.00, '2024-11-02 00:06:04', 7800.00),
+(8, 1, 2, 1300.00, '2024-11-02 00:11:26', 2600.00),
+(9, 3, 3, 492.00, '2024-11-02 07:38:27', 1476.00);
 
 -- --------------------------------------------------------
 
@@ -112,7 +120,11 @@ INSERT INTO `detalleventa` (`Venta_ID`, `Producto_ID`, `Cantidad`, `Precio`, `Fe
 (5, 2, 2, 1300.00, '2024-10-24 16:55:12', 2600.00),
 (5, 3, 3, 4000.00, '2024-10-24 16:55:21', 12000.00),
 (5, 4, 3, 3500.00, '2024-10-24 16:55:30', 10500.00),
-(5, 5, 2, 600.00, '2024-10-24 16:55:38', 1200.00);
+(5, 5, 2, 600.00, '2024-10-24 16:55:38', 1200.00),
+(6, 3, 2, 4000.00, '2024-10-30 22:04:17', 8000.00),
+(6, 2, 3, 1300.00, '2024-10-30 22:04:30', 3900.00),
+(7, 2, 2, 1300.00, '2024-11-01 12:30:40', 2600.00),
+(7, 15, 3, 45.00, '2024-11-01 12:30:49', 135.00);
 
 -- --------------------------------------------------------
 
@@ -144,9 +156,9 @@ INSERT INTO `horario` (`Horario_ID`, `HoraIngreso`, `HoraSalida`, `DiasXsemana`)
 
 CREATE TABLE `pedidos` (
   `Pedido_ID` int(11) NOT NULL,
-  `Empleado_ID` int(11) NOT NULL,
+  `Usuario_ID` int(11) NOT NULL,
   `FechaRealizaPedido` date NOT NULL,
-  `FechaEntrega` date NOT NULL,
+  `FechaEntrega` date DEFAULT NULL,
   `Estado` varchar(20) NOT NULL,
   `Total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -155,8 +167,13 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`Pedido_ID`, `Empleado_ID`, `FechaRealizaPedido`, `FechaEntrega`, `Estado`, `Total`) VALUES
-(1, 1, '2024-10-05', '2024-10-06', 'Pendiente', 1500.00);
+INSERT INTO `pedidos` (`Pedido_ID`, `Usuario_ID`, `FechaRealizaPedido`, `FechaEntrega`, `Estado`, `Total`) VALUES
+(4, 4, '2024-11-01', '2024-11-01', 'Completo', 6000.00),
+(5, 4, '2024-11-01', NULL, 'Pendiente', 6000.00),
+(6, 4, '2024-11-02', NULL, 'Pendiente', 3900.00),
+(7, 4, '2024-11-02', NULL, 'Pendiente', 7800.00),
+(8, 4, '2024-11-02', NULL, 'Pendiente', 2600.00),
+(9, 4, '2024-11-02', NULL, 'Pendiente', 1476.00);
 
 -- --------------------------------------------------------
 
@@ -211,7 +228,9 @@ CREATE TABLE `productosproveedor` (
 --
 
 INSERT INTO `productosproveedor` (`ProductoPro_ID`, `Proveedor_ID`, `Categoria_ID`, `Descripcion`, `Precio`, `NombreProductoPro`) VALUES
-(1, 104, 102, 'Procesador AMD Ryzen 9 5900X', 1300.00, 'AMD Ryzen 9 5900X');
+(1, 104, 102, 'Procesador AMD Ryzen 9 5900X', 1300.00, 'AMD Ryzen 9 5900X'),
+(2, 103, 103, 'Tarjeta gráfica Msi Geforce Rtx 4070 Super Ventus 3x Oc 12gb', 2000.00, 'Tarjeta gráfica Msi Geforce Rtx 4070 Super Ventus'),
+(3, 105, 104, 'Fuente de poder Corsair RM850x 850W', 492.00, 'Corsair RM850x');
 
 -- --------------------------------------------------------
 
@@ -258,40 +277,33 @@ CREATE TABLE `registroasistencia` (
 INSERT INTO `registroasistencia` (`Asistencia_ID`, `Usuario_ID`, `Fecha`, `Entrada_Hora`, `Salida_Hora`) VALUES
 (7, 1, '2024-10-24', '15:29:57', '15:30:22'),
 (8, 1, '2024-10-24', '15:31:46', '15:32:24'),
-(9, 1, '2024-10-24', '15:32:43', NULL),
-(10, 1, '2024-10-24', '15:33:08', NULL),
-(11, 1, '2024-10-24', '15:33:26', NULL),
-(12, 1, '2024-10-24', '16:31:53', NULL),
 (13, 1, '2024-10-24', '16:33:27', '16:33:29'),
-(14, 1, '2024-10-24', '16:33:45', NULL),
 (15, 1, '2024-10-24', '16:36:01', '16:36:02'),
-(16, 1, '2024-10-24', '16:42:29', NULL),
 (17, 1, '2024-10-24', '16:44:21', '16:44:23'),
-(18, 1, '2024-10-24', '16:47:20', NULL),
-(19, 1, '2024-10-24', '16:50:40', NULL),
-(20, 1, '2024-10-24', '16:54:50', NULL),
-(21, 1, '2024-10-24', '16:59:56', NULL),
-(22, 1, '2024-10-24', '17:00:38', NULL),
-(23, 1, '2024-10-24', '17:02:13', NULL),
-(24, 1, '2024-10-24', '17:05:12', NULL),
-(25, 1, '2024-10-24', '17:07:23', NULL),
-(26, 1, '2024-10-24', '17:09:55', NULL),
-(27, 1, '2024-10-24', '17:12:27', NULL),
-(28, 1, '2024-10-24', '17:15:08', NULL),
-(29, 1, '2024-10-24', '17:17:41', NULL),
-(30, 1, '2024-10-24', '17:20:11', NULL),
-(31, 1, '2024-10-24', '17:21:26', NULL),
-(32, 1, '2024-10-24', '17:23:08', NULL),
 (33, 1, '2024-10-24', '17:23:52', '17:23:54'),
-(34, 1, '2024-10-24', '17:25:43', NULL),
-(35, 1, '2024-10-24', '17:26:43', NULL),
-(36, 1, '2024-10-24', '17:27:28', NULL),
-(37, 1, '2024-10-24', '17:29:22', NULL),
-(38, 1, '2024-10-24', '17:35:11', NULL),
-(39, 1, '2024-10-24', '17:36:19', NULL),
-(41, 1, '2024-10-24', '18:30:44', NULL),
-(44, 1, '2024-10-24', '18:31:51', NULL),
-(45, 1, '2024-10-24', '18:32:18', NULL);
+(81, 1, '2024-11-01', '12:30:18', NULL),
+(82, 1, '2024-11-01', '12:32:45', '12:32:55'),
+(87, 4, '2024-11-01', '21:59:58', NULL),
+(88, 4, '2024-11-01', '22:22:50', NULL),
+(89, 4, '2024-11-01', '22:24:11', NULL),
+(90, 4, '2024-11-01', '22:26:40', NULL),
+(91, 4, '2024-11-01', '22:27:00', NULL),
+(92, 4, '2024-11-01', '22:46:25', NULL),
+(93, 4, '2024-11-01', '22:47:01', NULL),
+(94, 4, '2024-11-01', '23:28:49', NULL),
+(95, 4, '2024-11-01', '23:30:19', NULL),
+(96, 4, '2024-11-01', '23:30:38', NULL),
+(97, 4, '2024-11-02', '00:00:26', NULL),
+(98, 4, '2024-11-02', '00:00:43', NULL),
+(99, 4, '2024-11-02', '00:05:53', NULL),
+(100, 4, '2024-11-02', '00:06:08', NULL),
+(101, 4, '2024-11-02', '00:11:01', NULL),
+(102, 4, '2024-11-02', '00:11:40', NULL),
+(103, 4, '2024-11-02', '07:38:00', NULL),
+(104, 4, '2024-11-02', '07:38:33', NULL),
+(105, 4, '2024-11-02', '08:18:32', NULL),
+(106, 4, '2024-11-02', '08:21:31', NULL),
+(107, 4, '2024-11-02', '08:23:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -380,9 +392,10 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`Ventas_ID`, `Cliente_ID`, `Usuario_ID`, `Total`, `FechaHoraVenta`) VALUES
-(3, 1, 1, 1500.00, '2024-08-06 07:52:50'),
 (4, 1, 1, 165.00, '2024-10-24 12:38:34'),
-(5, 1, 1, 26300.00, '2024-10-24 16:56:26');
+(5, 1, 1, 26300.00, '2024-10-24 16:56:26'),
+(6, 10, 2, 11900.00, '2024-10-30 22:05:10'),
+(7, 1, 1, 2735.00, '2024-11-01 12:32:31');
 
 --
 -- Índices para tablas volcadas
@@ -405,7 +418,7 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `detallepedido`
   ADD KEY `Pedido_ID` (`Pedido_ID`),
-  ADD KEY `Producto_ID` (`Producto_ID`);
+  ADD KEY `Producto_ID` (`Prod_ID`);
 
 --
 -- Indices de la tabla `detalleventa`
@@ -425,7 +438,7 @@ ALTER TABLE `horario`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`Pedido_ID`),
-  ADD KEY `Proveedor_ID` (`Empleado_ID`);
+  ADD KEY `Proveedor_ID` (`Usuario_ID`);
 
 --
 -- Indices de la tabla `producto`
@@ -499,7 +512,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `Cliente_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Cliente_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `horario`
@@ -511,7 +524,7 @@ ALTER TABLE `horario`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `Pedido_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Pedido_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -523,7 +536,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productosproveedor`
 --
 ALTER TABLE `productosproveedor`
-  MODIFY `ProductoPro_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ProductoPro_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -535,7 +548,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `registroasistencia`
 --
 ALTER TABLE `registroasistencia`
-  MODIFY `Asistencia_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `Asistencia_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -559,7 +572,7 @@ ALTER TABLE `usuariohorario`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `Ventas_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Ventas_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -570,7 +583,7 @@ ALTER TABLE `ventas`
 --
 ALTER TABLE `detallepedido`
   ADD CONSTRAINT `detallepedido_ibfk_1` FOREIGN KEY (`Pedido_ID`) REFERENCES `pedidos` (`Pedido_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`Producto_ID`) REFERENCES `productosproveedor` (`ProductoPro_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`Prod_ID`) REFERENCES `productosproveedor` (`ProductoPro_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalleventa`
@@ -583,7 +596,7 @@ ALTER TABLE `detalleventa`
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`Empleado_ID`) REFERENCES `usuario` (`Usuario_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`Usuario_ID`) REFERENCES `usuario` (`Usuario_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`

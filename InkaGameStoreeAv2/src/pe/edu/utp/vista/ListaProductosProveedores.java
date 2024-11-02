@@ -5,7 +5,6 @@
 package pe.edu.utp.vista;
 
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import pe.edu.utp.controller.ProductoProveedorController;
 import pe.edu.utp.dao.ProductoProveedorDao;
 import pe.edu.utp.daoImpl.ProductoProveedorDaoImpl;
@@ -19,7 +18,6 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
     private ProductoProveedorDao pdao;
     private ProductoProveedorController controlador;
     private InicioSesionDTO usuarioLogeado;
-
     private void mostrarDatosUsuario() {
         if (usuarioLogeado != null) {
             lblCargo.setText(usuarioLogeado.getNombreCompleto());
@@ -30,26 +28,11 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
         initComponents();
         modelo = new ProductoProveedor();
         pdao = new ProductoProveedorDaoImpl(); 
-        controlador = new ProductoProveedorController(modelo, pdao, this); 
+        controlador = new ProductoProveedorController( modelo, pdao, this); 
         controlador.iniciar();
         this.usuarioLogeado = usuarioLogeado;
         mostrarDatosUsuario();
     }
-    
-    public void actualizarListaProductos(List<ProductoProveedor> productos) {
-    DefaultTableModel model = (DefaultTableModel) tblLista.getModel();
-    model.setRowCount(0); // Limpiar la tabla
-    for (ProductoProveedor producto : productos) {
-        model.addRow(new Object[]{
-            producto.getProductoPro_ID(),
-            producto.getProveedor(),
-            producto.getCategoria(),
-            producto.getDescripcion(),
-            producto.getPrecio(),
-            producto.getNombreProductoPro()
-        });
-    }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,6 +44,10 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        lblAgregarPro = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        lblGenerarPedidoo = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
         txtBuscarProd = new javax.swing.JTextField();
@@ -94,6 +81,44 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel9.setBackground(new java.awt.Color(17, 17, 58));
+
+        lblAgregarPro.setForeground(new java.awt.Color(255, 255, 255));
+        lblAgregarPro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAgregarPro.setText("Agregar Producto");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblAgregarPro, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblAgregarPro, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 540, -1, -1));
+
+        jPanel8.setBackground(new java.awt.Color(17, 17, 58));
+
+        lblGenerarPedidoo.setForeground(new java.awt.Color(255, 255, 255));
+        lblGenerarPedidoo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGenerarPedidoo.setText("Generar Pedido");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblGenerarPedidoo, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblGenerarPedidoo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 540, -1, -1));
+
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("A Cargo:");
@@ -125,7 +150,6 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblCat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCat.setForeground(new java.awt.Color(255, 255, 255));
         lblCat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCat.setText("Categoria");
@@ -144,11 +168,10 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Seleccionar Rango de Precio: ");
 
-        cmbSelRP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSelRP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - 1000", "1001 - 3000", "3001 - max" }));
 
         jPanel7.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblPrecio.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
         lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPrecio.setText("Precio");
@@ -168,7 +191,6 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblProv.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblProv.setForeground(new java.awt.Color(255, 255, 255));
         lblProv.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProv.setText("Proveedor");
@@ -205,9 +227,6 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -222,40 +241,42 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
                                 .addComponent(cmbSelCat, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))))
+                            .addComponent(jLabel5)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbSelCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cmbSelRP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 280, 400));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, 280, 310));
 
         jPanel3.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblBuscar.setForeground(new java.awt.Color(255, 255, 255));
         lblBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBuscar.setText("Buscar");
@@ -275,7 +296,6 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblRegresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblRegresar.setForeground(new java.awt.Color(255, 255, 255));
         lblRegresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegresar.setText("Regresar");
@@ -284,29 +304,43 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(lblRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 110, 30));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 150, 110, 30));
 
         tblLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Producto_ID", "Nombre", "Categoria", "Precio"
+                "Producto_ID", "Nombre", "Categoria", "Proveedor", "Precio", "Descripción"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblLista);
+        if (tblLista.getColumnModel().getColumnCount() > 0) {
+            tblLista.getColumnModel().getColumn(0).setResizable(false);
+            tblLista.getColumnModel().getColumn(1).setResizable(false);
+            tblLista.getColumnModel().getColumn(2).setResizable(false);
+            tblLista.getColumnModel().getColumn(3).setResizable(false);
+            tblLista.getColumnModel().getColumn(4).setResizable(false);
+            tblLista.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 520, 350));
 
@@ -402,10 +436,14 @@ public class ListaProductosProveedores extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JLabel lblAgregarPro;
     public javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCargo;
     public javax.swing.JLabel lblCat;
+    public javax.swing.JLabel lblGenerarPedidoo;
     public javax.swing.JLabel lblPrecio;
     public javax.swing.JLabel lblProv;
     public javax.swing.JLabel lblRegresar;

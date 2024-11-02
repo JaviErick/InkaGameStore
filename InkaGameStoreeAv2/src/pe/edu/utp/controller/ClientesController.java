@@ -157,17 +157,17 @@ public class ClientesController {
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una fila para modificar");
         }
+    }
 
-    }
     private void generarReporteExcel() {
-    // Obtener lista de clientes
-    List<Clientes> listaClientes = pdao.readAllClientes();  // Obtiene todos los clientes desde ClientesDao
-    if (!listaClientes.isEmpty()) {
-        // Llamar al servicio para generar el reporte
-        ExcelClientes.generarReporteClientes(listaClientes);
-    } else {
-        JOptionPane.showMessageDialog(null, "No hay clientes para generar el reporte.");
-    }
+        // Obtener lista de clientes
+        List<Clientes> listaClientes = pdao.readAllClientes();  // Obtiene todos los clientes desde ClientesDao
+        if (!listaClientes.isEmpty()) {
+            // Llamar al servicio para generar el reporte
+            ExcelClientes.generarReporteClientes(listaClientes);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay clientes para generar el reporte.");
+        }
     }
 
     // Método para limpiar los campos del formulario
@@ -211,7 +211,7 @@ public class ClientesController {
         }
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        
+
         for (int i = 0; i < vista.tblClientes.getColumnCount(); i++) {
             vista.tblClientes.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
         }
@@ -319,15 +319,14 @@ public class ClientesController {
             }
         });
         this.vista.lblExcel.addMouseListener(new MouseAdapter() {
-    @Override
-  public void mouseClicked(MouseEvent e) {
-            if (e.getSource() == vista.lblExcel) {
-                System.out.println("label Excel presionado");  // Depuración
-                generarReporteExcel();  // Llamada al método para generar el reporte
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getSource() == vista.lblExcel) {
+                    System.out.println("label Excel presionado");  // Depuración
+                    generarReporteExcel();  // Llamada al método para generar el reporte
+                }
             }
-        }
-    });
-
+        });
 
         // Agregar MouseListener a los campos de texto
         vista.txtDni.addMouseListener(new MouseAdapter() {
@@ -360,4 +359,3 @@ public class ClientesController {
 
     }
 }
-

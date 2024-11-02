@@ -135,7 +135,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lblIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblIngresar.setForeground(new java.awt.Color(255, 255, 255));
         lblIngresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIngresar.setText("Iniciar Sesión");
@@ -144,14 +143,14 @@ public class Login extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(lblIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(lblIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 180, 40));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, 120, 30));
 
         txtContraseñaa.setForeground(new java.awt.Color(153, 153, 153));
         txtContraseñaa.setText("************");

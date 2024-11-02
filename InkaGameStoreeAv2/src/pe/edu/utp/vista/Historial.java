@@ -134,7 +134,6 @@ public class Historial extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(17, 17, 58));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Ver Detalle");
@@ -143,18 +142,17 @@ public class Historial extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, 130, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, 110, 30));
 
         jPanel3.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblregresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblregresar.setForeground(new java.awt.Color(255, 255, 255));
         lblregresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblregresar.setText("Regresar");

@@ -180,7 +180,6 @@ public class RegistrodClientes extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblRegresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblRegresar.setForeground(new java.awt.Color(255, 255, 255));
         lblRegresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegresar.setText("Regresar");
@@ -194,18 +193,17 @@ public class RegistrodClientes extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(lblRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 150, 130, 40));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 150, 110, 30));
 
         jPanel2.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         lblRegistrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegistrar.setText("Registrar");
@@ -219,14 +217,14 @@ public class RegistrodClientes extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(lblRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 180, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 480, 140, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/fondobonito.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 850, 520));

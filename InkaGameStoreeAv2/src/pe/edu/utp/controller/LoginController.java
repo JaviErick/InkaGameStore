@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import pe.edu.utp.dao.UsuarioDao;
 import pe.edu.utp.dto.InicioSesionDTO;
 import pe.edu.utp.dto.SesionUsuario;
-import pe.edu.utp.entity.Asistencia;
 import pe.edu.utp.entity.Usuario;
 
 public class LoginController {

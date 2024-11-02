@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import pe.edu.utp.config.Conexion;
 import pe.edu.utp.dao.ProductoDao;
@@ -156,7 +154,7 @@ public class ProductoDaoImpl extends Conexion implements ProductoDao {
         }
 
         return categorias;
-    }    //para el item
+    }  
 
     @Override
     public int ObtenerIDCategoria(String nombreCategoria) {                                      //metodo2

@@ -69,16 +69,13 @@ public class RegistroClienteController {
     }
 
     private void regresar() {
-        // Inicializar los modelos y DAOs necesarios para el VentaController
         Productos modeloProducto = new Productos();
         ProductoDao productoDao = new ProductoDaoImpl(); // Asegúrate de que esto esté correctamente implementado
         BuscadordProductos vistaProductos = new BuscadordProductos(SesionUsuario.getUsuarioLogeado());
 
-        // Crear e iniciar el VentaController
         BuscarProductoController ventaController = new BuscarProductoController(modeloProducto, productoDao, vistaProductos);
-        ventaController.verCarrito();// Esto abrirá la vista de búsqueda de productos
+        ventaController.verCarrito();
 
-        // Cerrar la vista actual
         vista.dispose();
     }
 

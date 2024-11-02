@@ -128,7 +128,6 @@ public class GestorVentas extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblDetalle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDetalle.setForeground(new java.awt.Color(255, 255, 255));
         lblDetalle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDetalle.setText("Ver Detalle");
@@ -137,10 +136,7 @@ public class GestorVentas extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblDetalle)
-                .addContainerGap(10, Short.MAX_VALUE))
+            .addComponent(lblDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +147,6 @@ public class GestorVentas extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblBuscar.setForeground(new java.awt.Color(255, 255, 255));
         lblBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBuscar.setText("Buscar");
@@ -205,7 +200,6 @@ public class GestorVentas extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblRegresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblRegresar.setForeground(new java.awt.Color(255, 255, 255));
         lblRegresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegresar.setText("Regresar");
@@ -260,7 +254,6 @@ public class GestorVentas extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(17, 17, 58));
 
-        lblExcel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblExcel.setForeground(new java.awt.Color(255, 255, 255));
         lblExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExcel.setText("EXCEL");
@@ -269,18 +262,14 @@ public class GestorVentas extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+            .addComponent(lblExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblExcel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 520, 110, 40));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 520, 110, 30));
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 153));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/assets/fondo2.png"))); // NOI18N

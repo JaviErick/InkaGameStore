@@ -524,5 +524,6 @@ public class CarritoController implements Runnable {
                 txtMousePressed(vista.txtBusquedaDni, "Ingrese el Numero del DNI...");
             }
         });
+
     }
 }

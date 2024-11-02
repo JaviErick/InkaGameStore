@@ -174,7 +174,6 @@ public class BuscarProductoController implements Runnable {
     }
 
     public class CarritoManager {
-
         public static List<Carritoo> carrito = new ArrayList<>();
     }
 
@@ -217,7 +216,6 @@ public class BuscarProductoController implements Runnable {
         carritoController.iniciar();
         DefaultTableModel dtmodel = (DefaultTableModel) vistaCarrito.tblCarrito.getModel();
         dtmodel.setRowCount(0);
-
         for (Carritoo item : CarritoManager.carrito) {
             Object[] fila = {
                 item.getIdProducto(),
